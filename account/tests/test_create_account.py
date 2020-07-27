@@ -1,6 +1,7 @@
-from .tests_setup import TestAccountsSetUp
+import time
 from rest_framework import status
-import time  
+from .tests_setup import TestAccountsSetUp
+
 
 class TestCreateAccountAPI(TestAccountsSetUp):
    

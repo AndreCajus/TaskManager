@@ -1,11 +1,17 @@
+from django.contrib.auth.models import User
 from django.shortcuts import render
 from rest_framework import status
-from rest_framework.response import Response
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAuthenticated
-from django.contrib.auth.models import User
-from account.serializers import AccountSerializer
+from rest_framework.authentication import TokenAuthentication
 from rest_framework.authtoken.models import Token
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.filters import SearchFilter
+from rest_framework.generics import ListAPIView
+from rest_framework.pagination import PageNumberPagination
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+
+from account.serializers import AccountSerializer
+
 
 @api_view(['POST', ])
 @permission_classes(()) # doenst make sense to have permissions here
@@ -42,7 +48,8 @@ def put_account(request, username):
     except User.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     serializer = AccountSerializer(account_post, data=request.data)
-    change_account_permissions(request, account_post)
+    if account_post.username != request.user and not request.user.is_superuser:
+        return Response({'response': "Only an admin or the account user can edit the account!"})
     r_data = {}
     if serializer.is_valid():
         serializer.save()
@@ -60,7 +67,8 @@ def delete_account(request, username):
     except User.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     operation = account_post.delete()   
-    change_account_permissions(request, account_post)
+    if account_post.username != request.user and not request.user.is_superuser:
+        return Response({'response': "Only an admin or the account user can edit the account!"})
     r_data = {}
     if operation:
         r_data["success"] = "The account of the user '" + account_post.username + \
@@ -71,6 +79,12 @@ def delete_account(request, username):
     return Response(r_data)
 
 
-def change_account_permissions(request, account_post):
-    if account_post.username != request.user and not request.user.is_superuser:
-        return Response({'response': "Only an admin or the account user can edit the account!"})
+# https://www.django-rest-framework.org/api-guide/filtering/
+class ListAccounts(ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = AccountSerializer
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+    pagination_class = PageNumberPagination
+    filter_backends = (SearchFilter,)
+    search_fields = ('email', 'username', 'is_active',  'is_staff',  'is_superuser')

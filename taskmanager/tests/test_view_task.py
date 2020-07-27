@@ -1,5 +1,6 @@
-from .tests_setup import TestTasksSetUp
 from rest_framework import status
+from .tests_setup import TestTasksSetUp
+
 
 class TestViewTasksAPI(TestTasksSetUp):
 

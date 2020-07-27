@@ -1,11 +1,13 @@
-from rest_framework import serializers
 from django.contrib.auth.models import User
+from rest_framework import serializers
+
 
 class AccountSerializer(serializers.ModelSerializer):
+    #username = serializers.Field(source='username')
     class Meta:
         model = User
         fields = ['email', 'username', 'password',  'is_active',  'is_staff',  'is_superuser']
-        # so people cant read what is on password arg when the request is made (hides password field)
+        # so it is only possible to write and not to read
         extra_kwargs = {
             'password': {'write_only': True}
         }

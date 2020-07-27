@@ -1,16 +1,18 @@
-from rest_framework import status
-from rest_framework.response import Response
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from django_filters.rest_framework import DjangoFilterBackend
-from .models import Task
-from taskmanager.serializers import TaskSerializer, TaskSerializerForValidation, TaskSerializerValidation
-
-# for the list class view
-from rest_framework.pagination import PageNumberPagination
-from rest_framework.generics import ListAPIView
+from rest_framework import status
 from rest_framework.authentication import TokenAuthentication
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.filters import SearchFilter
+from rest_framework.generics import ListAPIView
+from rest_framework.pagination import PageNumberPagination
+from rest_framework.permissions import IsAdminUser, IsAuthenticated
+from rest_framework.response import Response
+
+from taskmanager.serializers import (TaskSerializer,
+                                     TaskSerializerBasicAccess,
+                                     TaskSerializerFullAcess)
+
+from .models import Task
 
 
 @api_view(['POST', ])
@@ -18,7 +20,7 @@ from rest_framework.filters import SearchFilter
 def create_task(request):
     account = request.user
     task_post = Task(author=account)
-    serializer = TaskSerializerForValidation(task_post, data=request.data)
+    serializer = TaskSerializerBasicAccess(task_post, data=request.data)
     data = {}
     if serializer.is_valid():
         serializer.save()
@@ -43,13 +45,26 @@ def put_task(request, description):
         task_post = Task.objects.get(description=description)
     except Task.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
-    serializer = TaskSerializerForValidation(task_post, data=request.data)
-    data = {}
+
+    #TODO improve this section (probably in the serializer.py side)
+    serlzr_contains_state = False
+    try:
+        request.data['states']
+        serlzr_contains_state = True
+    except:
+        pass
+
+    if not request.user.is_superuser and serlzr_contains_state:
+        return Response({'failed':'To validate a state you must be a system admin.'})
+    elif request.user.is_superuser:
+        serializer = TaskSerializerFullAcess(task_post, data=request.data)
+    else:
+        serializer = TaskSerializerBasicAccess(task_post, data=request.data)
+        
     if serializer.is_valid():
         serializer.save()
-        data["success"] = "The task '" + description + \
-                        "' was successfully updated."
-        return Response(data=data)
+        return Response({'success' : "The task '" + description + \
+                        "' was successfully updated."})
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -60,13 +75,12 @@ def validate_task(request, description):
         task_post = Task.objects.get(description=description)
     except Task.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
-    serializer = TaskSerializerValidation(task_post, data=request.data)
-    data = {}
+    serializer = TaskSerializerFullAcess(task_post, data=request.data)
+
     if serializer.is_valid():
         serializer.save()
-        data["success"] = "The task '" + description + \
-                        "' was successfully updated."
-        return Response(data=data)
+        return Response({'success' : "The task '" + description + \
+                        "' was successfully updated."})
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -96,4 +110,9 @@ class ListTasks(ListAPIView):
     filter_backends = (SearchFilter,)
     search_fields = ('author__username', 'category', 'loc_geo')
 
-    #The view's authentication class is explicitly set to TokenAuthentication only. It wont work with JWT token.
+class ListInvalidTasks(ListAPIView):
+    queryset = Task.objects.filter(states__exact="TV")
+    serializer_class = TaskSerializer
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+    pagination_class = PageNumberPagination

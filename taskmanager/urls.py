@@ -1,4 +1,4 @@
-from django.urls import path, include
+from django.urls import include, path
 from taskmanager.views import *
 
 urlpatterns = [
@@ -8,4 +8,5 @@ urlpatterns = [
     path('<description>/validate', validate_task, name="validate-task"),
     path('<description>/delete', delete_task, name="delete-task"),
     path('list', ListTasks.as_view(), name="list-tasks"),
+    path('invalid/list', ListInvalidTasks.as_view(), name="invalid-list-tasks"),
 ]

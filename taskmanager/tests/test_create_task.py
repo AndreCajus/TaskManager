@@ -1,6 +1,7 @@
-from .tests_setup import TestTasksSetUp
+import time
 from rest_framework import status
-import time  
+from .tests_setup import TestTasksSetUp
+
 
 class TestCreateTaskAPI(TestTasksSetUp):
    

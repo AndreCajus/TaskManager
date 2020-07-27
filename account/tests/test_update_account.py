@@ -1,5 +1,6 @@
-from .tests_setup import TestAccountsSetUp
 from rest_framework import status
+from .tests_setup import TestAccountsSetUp
+
 
 class TestUpdateAccountAPI(TestAccountsSetUp):
 
