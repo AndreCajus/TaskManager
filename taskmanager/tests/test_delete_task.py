@@ -1,17 +1,17 @@
 from .tests_setup import TestTasksSetUp
 from rest_framework import status
 
-class TestViewTasksAPI(TestTasksSetUp):
+class TestDeleteTaskAPI(TestTasksSetUp):
 
-    def test_view_existing_task(self):
-        response = self.client.get(self.get_task_url)
+    def test_delete_existing_task(self):
+        response = self.client.delete(self.delete_task_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK, response.content)
 
-    def test_view_unexisting_account(self):
-        response = self.client.get(self.get_unexisting_task_url)
+    def test_delete_unexisting_task(self):
+        response = self.client.delete(self.delete_unexisting_task_url)
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND, response.content)
 
-    def test_view_existing_account_with_unauthorized_user(self):
+    def test_delete_task_with_unauthorized_user(self):
         self.client.credentials(HTTP_AUTHORIZATION='')
-        response = self.client.get(self.get_task_url)
+        response = self.client.delete(self.delete_task_url)
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED, response.content)

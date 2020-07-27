@@ -15,13 +15,8 @@ class TestTasksSetUp(APITestCase):
         self.put_unexisting_task_url=reverse('put-task', kwargs={'description':'unexisting_test_task'})
         self.delete_task_url=reverse('delete-task', kwargs={'description':'test_task'})
         self.delete_unexisting_task_url=reverse('delete-task', kwargs={'description':'unexisting_test_task'})
-        
-        # used task data for testing
-        self.task_data = {
-            'description': 'test_task', 
-            }   
 
-        # create user 
+        # create user to be used
         self.create_account_url=reverse('create-account')
         self.user_data = {
             'username': 'username', 
@@ -30,4 +25,10 @@ class TestTasksSetUp(APITestCase):
             }   
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.client.post(self.create_account_url, self.user_data).data['token'])
 
+        # create task to be used
+        self.task_data = {
+            'description': 'test_task', 
+            }   
+        self.client.post(self.create_task_url, self.task_data)
+        
         return super().setUp()
