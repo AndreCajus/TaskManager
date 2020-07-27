@@ -18,9 +18,23 @@ from .models import Task
 @api_view(['POST', ])
 @permission_classes((IsAuthenticated,))
 def create_task(request):
-    account = request.user
-    task_post = Task(author=account)
-    serializer = TaskSerializerBasicAccess(task_post, data=request.data)
+    task_post = Task(author=request.user)
+
+    #TODO improve this section (probably in the serializer.py side)
+    data_contains_state = False
+    try:
+        request.data['states']
+        data_contains_state = True
+    except:
+        pass
+
+    if not request.user.is_superuser and data_contains_state:
+        return Response({'failed':'To post a state you must be a system admin.'})
+    elif request.user.is_superuser:
+        serializer = TaskSerializerFullAcess(task_post, data=request.data)
+    else:
+        serializer = TaskSerializerBasicAccess(task_post, data=request.data)
+
     data = {}
     if serializer.is_valid():
         serializer.save()
@@ -47,14 +61,14 @@ def put_task(request, description):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     #TODO improve this section (probably in the serializer.py side)
-    serlzr_contains_state = False
+    data_contains_state = False
     try:
         request.data['states']
-        serlzr_contains_state = True
+        data_contains_state = True
     except:
         pass
 
-    if not request.user.is_superuser and serlzr_contains_state:
+    if not request.user.is_superuser and data_contains_state:
         return Response({'failed':'To validate a state you must be a system admin.'})
     elif request.user.is_superuser:
         serializer = TaskSerializerFullAcess(task_post, data=request.data)
@@ -90,7 +104,8 @@ def delete_task(request, description):
     try:
         task_post = Task.objects.get(description=description)
     except Task.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+        return Response({'missing' : 'There is no task with this description'},
+                         status=status.HTTP_404_NOT_FOUND)
     operation = task_post.delete()  
     data = {}
     if operation:
@@ -116,3 +131,4 @@ class ListInvalidTasks(ListAPIView):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
     pagination_class = PageNumberPagination
+

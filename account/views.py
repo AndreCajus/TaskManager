@@ -48,8 +48,10 @@ def put_account(request, username):
     except User.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
     serializer = AccountSerializer(account_post, data=request.data)
+
     if account_post.username != request.user and not request.user.is_superuser:
         return Response({'response': "Only an admin or the account user can edit the account!"})
+        
     r_data = {}
     if serializer.is_valid():
         serializer.save()
