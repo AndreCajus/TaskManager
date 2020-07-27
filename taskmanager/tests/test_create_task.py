@@ -1,0 +1,20 @@
+from .tests_setup import TestTasksSetUp
+from rest_framework import status
+import time  
+
+class TestCreateTaskAPI(TestTasksSetUp):
+   
+    def test_create_task_mandatory_parameters(self):
+        response = self.client.post(self.create_task_url, self.task_data)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)  
+
+
+    def test_create_task_missing_parameters(self):
+        response = self.client.post(self.create_task_url, {})
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)    
+
+
+    def test_create_task_wrong_category(self):
+        self.task_data['category'] = "wrong_category"
+        response = self.client.post(self.create_task_url, self.task_data)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST) 

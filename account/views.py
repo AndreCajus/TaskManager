@@ -1,0 +1,76 @@
+from django.shortcuts import render
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
+from django.contrib.auth.models import User
+from account.serializers import AccountSerializer
+from rest_framework.authtoken.models import Token
+
+@api_view(['POST', ])
+@permission_classes(()) # doenst make sense to have permissions here
+def create_account(request):
+    serializer = AccountSerializer(data=request.data)
+    data = {}
+    if serializer.is_valid():
+        account = serializer.save()
+        data['response'] = "The account of the user '" + account.username + \
+                            "' with the email '" + account.email + \
+                            "' was successfuly registred!"
+        token = Token.objects.get(user=account).key
+        data['token'] = token
+    else:
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    return Response(data, status=status.HTTP_201_CREATED)
+
+@api_view(['GET'])
+@permission_classes((IsAuthenticated,))
+def get_account(request, username):
+    try:
+        account_post = User.objects.get(username=username)
+    except User.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    serializer = AccountSerializer(account_post)
+    return Response(serializer.data)
+
+
+@api_view(['PUT'])
+@permission_classes((IsAuthenticated,))
+def put_account(request, username):
+    try:
+        account_post = User.objects.get(username=username)
+    except User.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    serializer = AccountSerializer(account_post, data=request.data)
+    change_account_permissions(request, account_post)
+    r_data = {}
+    if serializer.is_valid():
+        serializer.save()
+        r_data["success"] = "The account of the user '" + account_post.username + \
+                          "' was updated successfully!"
+        return Response(data=r_data)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['DELETE'])
+@permission_classes((IsAuthenticated,))
+def delete_account(request, username):
+    try:
+        account_post = User.objects.get(username=username)
+    except User.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    operation = account_post.delete()   
+    change_account_permissions(request, account_post)
+    r_data = {}
+    if operation:
+        r_data["success"] = "The account of the user '" + account_post.username + \
+                          "' was deleted successfully!"
+    else:
+        r_data["failure"] = "The account delete for the user '" + account_post.username + \
+                          "' failed!"
+    return Response(r_data)
+
+
+def change_account_permissions(request, account_post):
+    if account_post.username != request.user and not request.user.is_superuser:
+        return Response({'response': "Only an admin or the account user can edit the account!"})
