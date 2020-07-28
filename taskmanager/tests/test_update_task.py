@@ -1,7 +1,6 @@
 from rest_framework import status
 from .tests_setup import TestTasksSetUp
 
-
 class TestUpdateTaskAPI(TestTasksSetUp):
 
     def test_put_existing_task(self):

@@ -1,5 +1,6 @@
 from django.urls import reverse
 from rest_framework.test import APITestCase
+from rest_framework.test import APIClient
 
 
 class TestTasksSetUp(APITestCase):
@@ -16,14 +17,25 @@ class TestTasksSetUp(APITestCase):
         self.delete_task_url=reverse('delete-task', kwargs={'description':'test_task'})
         self.delete_unexisting_task_url=reverse('delete-task', kwargs={'description':'unexisting_test_task'})
 
-        # create user to be used
+        # Client 1 - Admin client
         self.create_account_url=reverse('create-account')
         self.user_data = {
             'username': 'username', 
             'email' : 'email@gmail.com',
-            'password': 'password'
+            'password': 'password',
+            'is_superuser' : True,
             }   
         self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.client.post(self.create_account_url, self.user_data).data['token'])
+
+        # Client 2 - Not an Admin Client
+        self.client2 = APIClient()
+        self.user2_data = {
+            'username': 'clinet_2', 
+            'email' : 'email2@gmail.com',
+            'password': 'password2',
+            'is_superuser' : False,
+            }   
+        self.client2.credentials(HTTP_AUTHORIZATION='Token ' + self.client2.post(self.create_account_url, self.user2_data).data['token'])
 
         # create task to be used
         self.task_data = {
