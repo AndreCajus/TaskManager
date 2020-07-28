@@ -2,7 +2,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import status
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.filters import SearchFilter
+from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.generics import ListAPIView
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
@@ -120,6 +120,7 @@ def delete_task(request, description):
         data["failure"] = "delete failed"
     return Response(data=data)
 
+
 # https://www.django-rest-framework.org/api-guide/filtering/
 class ListTasks(ListAPIView):
     queryset = Task.objects.all()
@@ -127,8 +128,11 @@ class ListTasks(ListAPIView):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
     pagination_class = PageNumberPagination
-    filter_backends = (SearchFilter,)
+    filter_backends = (SearchFilter, OrderingFilter)
+    #?search=staff&ordering=-loc_geo
     search_fields = ('author__username', 'category', 'loc_geo')
+    ordering_filds = ('author__username', 'category', 'loc_geo')  
+
 
 class ListInvalidTasks(ListAPIView):
     queryset = Task.objects.filter(states__exact="TV")
@@ -136,4 +140,6 @@ class ListInvalidTasks(ListAPIView):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
     pagination_class = PageNumberPagination
-
+    filter_backends = (SearchFilter, OrderingFilter)
+    search_fields = ('author__username', 'category', 'loc_geo')
+    ordering_filds = ('author__username', 'category', 'loc_geo')  
