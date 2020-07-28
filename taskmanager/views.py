@@ -58,7 +58,8 @@ def put_task(request, description):
     try:
         task_post = Task.objects.get(description=description)
     except Task.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+        return Response({'missing' : 'There is no task with this description.'},
+                        status=status.HTTP_404_NOT_FOUND)
 
     #TODO improve this section (probably in the serializer.py side)
     data_contains_state = False
@@ -88,7 +89,8 @@ def validate_task(request, description):
     try:
         task_post = Task.objects.get(description=description)
     except Task.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+        return Response({'missing' : 'There is no task with this description.'},
+                        status=status.HTTP_404_NOT_FOUND)
     serializer = TaskSerializerFullAcess(task_post, data=request.data)
 
     if serializer.is_valid():
@@ -104,7 +106,7 @@ def delete_task(request, description):
     try:
         task_post = Task.objects.get(description=description)
     except Task.DoesNotExist:
-        return Response({'missing' : 'There is no task with this description'},
+        return Response({'missing' : 'There is no task with this description.'},
                          status=status.HTTP_404_NOT_FOUND)
     operation = task_post.delete()  
     data = {}
