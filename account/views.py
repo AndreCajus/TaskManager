@@ -9,10 +9,11 @@ from rest_framework.generics import ListAPIView
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from drf_yasg.utils import swagger_auto_schema
 
 from account.serializers import AccountSerializer
 
-
+@swagger_auto_schema(method='post' , request_body=AccountSerializer)
 @api_view(['POST', ])
 @permission_classes(()) # doenst make sense to have permissions here
 def create_account(request):

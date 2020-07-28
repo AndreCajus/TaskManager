@@ -1,0 +1,20 @@
+ version: '3'
+    
+  services:
+    db:
+      image: kartoza/postgis
+      env_file: 
+        - ./docker-env/dev.env
+    web:
+      build:
+        context: .
+        dockerfile: ./dockerfile/Dockerfile
+      command: 
+        - ./execute-docker-dev.sh
+      volumes:
+        - .:/code
+        -
+      ports:
+        - "8000:8000"
+      depends_on:
+        - db

@@ -23,7 +23,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '4zn5o49u+j=azgb@oj7(@xqg&^x=w8@*5+z8si7)1!y7^c8bq_'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+if os.environ.get("DJANGO_ENV", "dev") == "dev":
+    DEBUG = True
+else:
+    DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -113,10 +116,10 @@ WSGI_APPLICATION = 'project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'bota5',
-        'USER': 'postgres',
-        'PASSWORD': 'admin',
-        'HOST': 'localhost',
+        'NAME': os.environ.get("POSTGRES_DB", 'bota5'),
+        'USER': os.environ.get("POSTGRES_USER",'postgres'),
+        'PASSWORD': os.environ.get("POSTGRES_PWD", 'admin'),
+        'HOST': os.environ.get("POSTGRES_HOST", 'localhost'),
         'PORT': '5432',
     }
 }

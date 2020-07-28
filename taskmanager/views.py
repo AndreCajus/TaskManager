@@ -1,8 +1,9 @@
 from django_filters.rest_framework import DjangoFilterBackend
+from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.filters import SearchFilter, OrderingFilter
+from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework.generics import ListAPIView
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
@@ -14,6 +15,7 @@ from taskmanager.serializers import (TaskSerializerBasicAccess,
 from .models import Task
 
 
+@swagger_auto_schema(method='post' , request_body=TaskSerializerBasicAccess)
 @api_view(['POST', ])
 @permission_classes((IsAuthenticated,))
 def create_task(request):
