@@ -8,8 +8,7 @@ from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
 
-from taskmanager.serializers import (TaskSerializer,
-                                     TaskSerializerBasicAccess,
+from taskmanager.serializers import (TaskSerializerBasicAccess,
                                      TaskSerializerFullAcess)
 
 from .models import Task
@@ -50,7 +49,7 @@ def get_task(request, description):
     except Task.DoesNotExist:
         return Response({'missing' : 'There is no task with this description.'},
                         status=status.HTTP_404_NOT_FOUND)
-    return Response(TaskSerializer(task_post).data)
+    return Response(TaskSerializerBasicAccess(task_post).data)
 
 
 @api_view(['PUT'])
@@ -76,7 +75,9 @@ def put_task(request, description):
     elif request.user.is_superuser:
         serializer = TaskSerializerFullAcess(task_post, data=request.data)
     else:
-        serializer = TaskSerializerBasicAccess(task_post, data=request.data)
+        # this line is essential, since if a normal user updates a entry, it needs to be valitaded again
+        task_post.states = 'TV'
+        serializer = TaskSerializerFullAcess(task_post, data=request.data)
         
     if serializer.is_valid():
         serializer.save()
@@ -122,7 +123,7 @@ def delete_task(request, description):
 # https://www.django-rest-framework.org/api-guide/filtering/
 class ListTasks(ListAPIView):
     queryset = Task.objects.all()
-    serializer_class = TaskSerializer
+    serializer_class = TaskSerializerBasicAccess
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
     pagination_class = PageNumberPagination
@@ -131,7 +132,7 @@ class ListTasks(ListAPIView):
 
 class ListInvalidTasks(ListAPIView):
     queryset = Task.objects.filter(states__exact="TV")
-    serializer_class = TaskSerializer
+    serializer_class = TaskSerializerBasicAccess
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
     pagination_class = PageNumberPagination
