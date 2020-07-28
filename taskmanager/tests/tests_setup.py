@@ -20,7 +20,7 @@ class TestTasksSetUp(APITestCase):
         # Client 1 - Admin client
         self.create_account_url=reverse('create-account')
         self.user_data = {
-            'username': 'username', 
+            'username': 'admin', 
             'email' : 'email@gmail.com',
             'password': 'password',
             'is_superuser' : True,
@@ -30,7 +30,7 @@ class TestTasksSetUp(APITestCase):
         # Client 2 - Not an Admin Client
         self.client2 = APIClient()
         self.user2_data = {
-            'username': 'clinet_2', 
+            'username': 'staff', 
             'email' : 'email2@gmail.com',
             'password': 'password2',
             'is_superuser' : False,
