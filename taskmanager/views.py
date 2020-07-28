@@ -20,7 +20,7 @@ from .models import Task
 def create_task(request):
     task_post = Task(author=request.user)
 
-    #TODO improve this section (probably in the serializer.py side)
+    #TODO improve this section
     data_contains_state = False
     try:
         request.data['states']
@@ -29,13 +29,13 @@ def create_task(request):
         pass
 
     if not request.user.is_superuser and data_contains_state:
-        return Response({'failed':'To post a state you must be a system admin.'})
+        return Response({'failed':'To post a state you must be a system admin.'}, 
+                        status=status.HTTP_401_UNAUTHORIZED)
     elif request.user.is_superuser:
         serializer = TaskSerializerFullAcess(task_post, data=request.data)
     else:
         serializer = TaskSerializerBasicAccess(task_post, data=request.data)
 
-    data = {}
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -48,7 +48,8 @@ def get_task(request, description):
     try:
         task_post = Task.objects.get(description=description)
     except Task.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+        return Response({'missing' : 'There is no task with this description.'},
+                        status=status.HTTP_404_NOT_FOUND)
     return Response(TaskSerializer(task_post).data)
 
 
@@ -61,16 +62,17 @@ def put_task(request, description):
         return Response({'missing' : 'There is no task with this description.'},
                         status=status.HTTP_404_NOT_FOUND)
 
-    #TODO improve this section (probably in the serializer.py side)
+    #TODO improve this section
     data_contains_state = False
     try:
-        request.data['states']
+        current_state = request.data['states']
         data_contains_state = True
     except:
         pass
 
     if not request.user.is_superuser and data_contains_state:
-        return Response({'failed':'To validate a state you must be a system admin.'})
+        return Response({'failed':'To validate a state you must be a system admin.'}, 
+                        status=status.HTTP_401_UNAUTHORIZED)
     elif request.user.is_superuser:
         serializer = TaskSerializerFullAcess(task_post, data=request.data)
     else:

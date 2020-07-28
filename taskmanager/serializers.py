@@ -6,7 +6,10 @@ from .models import Task
 class TaskSerializerBasicAccess(serializers.ModelSerializer):
     class Meta:
         model = Task
-        fields = ['description', 'loc_geo', 'creation_date', 'update_date', 'category']
+        fields = ['description', 'loc_geo', 'creation_date', 'update_date', 'category', 'states']
+        extra_kwargs = {
+            'states': {'read_only': True}
+        }
 
 
 class TaskSerializerFullAcess(serializers.ModelSerializer):
