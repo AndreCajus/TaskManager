@@ -20,7 +20,8 @@ class TestAccountsSetUp(APITestCase):
         self.account_data = {
             'username': 'username', 
             'email' : 'email@gmail.com',
-            'password': 'password'
+            'password': 'password',
+            'is_superuser' : False
             }  
 
         # user with token for testing

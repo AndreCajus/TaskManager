@@ -50,7 +50,8 @@ def put_account(request, username):
     serializer = AccountSerializer(account_post, data=request.data)
 
     if account_post.username != request.user and not request.user.is_superuser:
-        return Response({'response': "Only an admin or the account user can edit the account!"})
+        return Response({'response': "Only an admin or the account user can edit the account!"}) 
+                        #status=status.HTTP_401_UNAUTHORIZED)
         
     r_data = {}
     if serializer.is_valid():
@@ -67,10 +68,12 @@ def delete_account(request, username):
     try:
         account_post = User.objects.get(username=username)
     except User.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
-    operation = account_post.delete()   
+        return Response(status=status.HTTP_404_NOT_FOUND) 
     if account_post.username != request.user and not request.user.is_superuser:
         return Response({'response': "Only an admin or the account user can edit the account!"})
+                        #status=status.HTTP_401_UNAUTHORIZED)
+
+    operation = account_post.delete()  
     r_data = {}
     if operation:
         r_data["success"] = "The account of the user '" + account_post.username + \

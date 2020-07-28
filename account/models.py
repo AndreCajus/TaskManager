@@ -4,12 +4,6 @@ from django.dispatch import receiver
 from rest_framework.authtoken.models import Token
 from django.contrib.auth.models import User
 
-
-def get_username(self):
-    return self.username
-
-User.add_to_class("__str__", get_username)
-
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
 def create_account_token(sender, instance=None, created=False, **kwargs):
     if created:
