@@ -75,7 +75,7 @@ def put_task(request, description):
     elif request.user.is_superuser:
         serializer = TaskSerializerFullAcess(task_post, data=request.data)
     else:
-        # this line is essential, since if a normal user updates a entry, it needs to be valitaded again
+        # this line is essential, since if a normal user updates a entry, it needs to be valitaded again, TaskSerializerFullAcess needed
         task_post.states = 'TV'
         serializer = TaskSerializerFullAcess(task_post, data=request.data)
         
