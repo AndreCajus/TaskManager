@@ -1,6 +1,5 @@
 from django.urls import reverse
-from rest_framework.test import APITestCase
-from rest_framework.test import APIClient
+from rest_framework.test import APITestCase, APIClient
 from taskmanager.models import Task
 from django.contrib.auth.models import User
 import json
