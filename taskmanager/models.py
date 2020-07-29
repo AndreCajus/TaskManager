@@ -5,11 +5,11 @@ from django.db import models
 from django.contrib.gis.db import models
 
 # to create postgis extension
-from django.contrib.postgres.operations import CreateExtension
+#from django.contrib.postgres.operations import CreateExtension
 from django.db import migrations
 
-class Migration(migrations.Migration):
-    operations = [ CreateExtension('postgis') ]
+#class Migration(migrations.Migration):
+#    operations = [ CreateExtension('postgis') ]
 
 
 class Task(models.Model):

@@ -1,20 +1,22 @@
- version: '3'
+version: '3'
     
-  services:
-    db:
-      image: kartoza/postgis
-      env_file: 
-        - ./docker-env/dev.env
-    web:
-      build:
-        context: .
-        dockerfile: ./dockerfile/Dockerfile
-      command: 
-        - ./execute-docker-dev.sh
-      volumes:
-        - .:/code
-      ports:
-        - "8080:8080"
-      depends_on:
-        - db
-      restart: always
+services:
+  db:
+    image: kartoza/postgis
+    env_file: 
+      - ./docker-env/dev.env
+    ports:
+      - "5432:5432"
+  web:
+    build:
+      context: .
+      dockerfile: ./dockerfile/Dockerfile
+    env_file: 
+      - ./docker-env/dev.env
+    command: 
+      - ./execute-docker-dev.sh
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    restart: always
