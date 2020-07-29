@@ -130,10 +130,11 @@ def delete_task(request, pk):
     return Response(data=data)
 
 
-
+# https://www.django-rest-framework.org/api-guide/filtering/
 # To list tasks and filter 
 class ListTasks(ListAPIView):
     queryset = Task.objects.all()
+    # importante so it doenst import all bd entries at each request..
     pagination_class = PageNumberPagination
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_fields = ('author', 'category')
@@ -142,8 +143,17 @@ class ListTasks(ListAPIView):
     permission_classes = (IsAuthenticated,)
 
 
+class ListInvalidTasks(ListAPIView):
+    queryset = Task.objects.filter(states__exact="TV")
+    pagination_class = PageNumberPagination
+    filter_backends = (filters.DjangoFilterBackend,)
+    serializer_class = TaskSerializerBasicAccess
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+
+
+
 """
-# https://www.django-rest-framework.org/api-guide/filtering/
 class ListTasks(ListAPIView):
     queryset = Task.objects.all()
     serializer_class = TaskSerializerBasicAccess
@@ -155,11 +165,3 @@ class ListTasks(ListAPIView):
     search_fields = ('author__username', 'category', 'loc_geo')
     ordering_filds = ('author__username', 'category', 'loc_geo')  
 """
-
-class ListInvalidTasks(ListAPIView):
-    queryset = Task.objects.filter(states__exact="TV")
-    pagination_class = PageNumberPagination
-    filter_backends = (filters.DjangoFilterBackend,)
-    serializer_class = TaskSerializerBasicAccess
-    authentication_classes = (TokenAuthentication,)
-    permission_classes = (IsAuthenticated,)

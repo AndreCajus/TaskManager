@@ -27,7 +27,7 @@ class TaskSerializerBasicAccess(serializers.ModelSerializer):
             'update_date': {'read_only': True},
         }
 
-# so the states is always default on create operation and only admins can update it
+# used by admins for patching state to a task
 class TaskSerializerValidation(serializers.ModelSerializer):
     class Meta:
         model = Task
