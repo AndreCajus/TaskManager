@@ -3,9 +3,11 @@
 
 ### Postman
 
-env) [a link](https://github.com/AndreCajus/TaskManager/blob/master/gitcontent/dev-ubiwhere-env.postman_environment.json)
+At the project structure, I provide the JSONs to set up the API collection and its environment.
 
-collection) [a link](https://github.com/AndreCajus/TaskManager/blob/master/gitcontent/ubiwhere.postman_collection.json)
+1) [Environment](https://github.com/AndreCajus/TaskManager/blob/master/gitcontent/dev-ubiwhere-env.postman_environment.json)
+
+2) [Collection](https://github.com/AndreCajus/TaskManager/blob/master/gitcontent/ubiwhere.postman_collection.json)
 
 ### Images
 
