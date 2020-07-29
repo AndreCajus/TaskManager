@@ -1,8 +1,9 @@
+<hr>
+
 ### TASKs and ACCOUNTs API
 <hr>
 
 
-<hr>
 
 
 ### 1. Services
@@ -86,5 +87,3 @@ c) After running the API, you can use the [Collection](https://github.com/AndreC
 <img src="external_content/models_admin.png" style="width: 100%;">
 <br>
 <img src="external_content/post_gis.png" style="width: 100%;">
-<br>
-<img src="external_content/swagger.png" style="width: 100%;">
