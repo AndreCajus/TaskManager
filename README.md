@@ -63,28 +63,28 @@ c) After running the API, you can use the [Collection](https://github.com/AndreC
 
 | Tests     						                | Expected HTTP Response	|
 | -------------         					        | ------------- 			|
-| **Create Tasks**      						                                |
-| test_create_task_mandatory_parameters	            | HTTP_201_CREATED 			|
-| test_create_task_missing_parameters   	        | HTTP_400_BAD_REQUEST		| 
-| test_create_task_wrong_category          	        | HTTP_400_BAD_REQUEST 		| 
-| test_staff_create_task_with_state 		        | HTTP_401_UNAUTHORIZED 	| 
-| test_admin_create_task_with_state 		        | HTTP_201_CREATED 			| 
-| **Delete Tasks**      						                                |
-| test_delete_existing_task	    			        | HTTP_200_OK	 			|
-| test_delete_unexisting_task   			        | HTTP_404_NOT_FOUND		| 
-| test_delete_task_with_unauthorized_user           | HTTP_401_UNAUTHORIZED 	| 
-| **Update Tasks**       							                            |
-| test_put_existing_task	    				    | HTTP_200_OK	 			|
-| test_put_existing_task_missing_parameters   	    | HTTP_400_BAD_REQUEST		| 
-| test_put_unexisting_task   					    | HTTP_404_NOT_FOUND 		| 
-| test_put_existing_task_with_unauthorized_user     | HTTP_401_UNAUTHORIZED 	| 
-| test_staff_put_task_with_state   				    | HTTP_401_UNAUTHORIZED 	| 
-| test_admin_put_task_with_state   				    | HTTP_200_OK 				| 
-| test_staff_put_task_update_state_to_validate      | HTTP_201_CREATED 			| 
-| **View Tasks**       										                    |
-| test_view_existing_task	    					| HTTP_200_OK	 			|
-| test_view_unexisting_task        					| HTTP_404_NOT_FOUND		| 
-| test_view_existing_task_with_unauthorized_user    | HTTP_401_UNAUTHORIZED 	| 
+| **Create Tasks**      						    | -------------             |
+| test_create_task_mandatory_parameters	            | `HTTP_201_CREATED` 		|
+| test_create_task_missing_parameters   	        | `HTTP_400_BAD_REQUEST`	| 
+| test_create_task_wrong_category          	        | `HTTP_400_BAD_REQUEST` 	| 
+| test_staff_create_task_with_state 		        | `HTTP_401_UNAUTHORIZED` 	| 
+| test_admin_create_task_with_state 		        | `HTTP_201_CREATED` 		| 
+| **Delete Tasks**      						    | -------------             |
+| test_delete_existing_task	    			        | `HTTP_200_OK`	 			|
+| test_delete_unexisting_task   			        | `HTTP_404_NOT_FOUND`		| 
+| test_delete_task_with_unauthorized_user           | `HTTP_401_UNAUTHORIZED` 	| 
+| **Update Tasks**       							| -------------             |
+| test_put_existing_task	    				    | `HTTP_200_OK`	 			|
+| test_put_existing_task_missing_parameters   	    | `HTTP_400_BAD_REQUEST`	| 
+| test_put_unexisting_task   					    | `HTTP_404_NOT_FOUND` 		| 
+| test_put_existing_task_with_unauthorized_user     | `HTTP_401_UNAUTHORIZED` 	| 
+| test_staff_put_task_with_state   				    | `HTTP_401_UNAUTHORIZED` 	| 
+| test_admin_put_task_with_state   				    | `HTTP_200_OK` 			| 
+| test_staff_put_task_update_state_to_validate      | `HTTP_201_CREATED` 		| 
+| **View Tasks**       								| -------------             |
+| test_view_existing_task	    					| `HTTP_200_OK`	 			|
+| test_view_unexisting_task        					| `HTTP_404_NOT_FOUND`		| 
+| test_view_existing_task_with_unauthorized_user    | `HTTP_401_UNAUTHORIZED` 	| 
 
 
 
