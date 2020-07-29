@@ -15,6 +15,7 @@ class Migration(migrations.Migration):
 class Task(models.Model):
 
     class Categories(models.TextChoices):
+        NO_CATEGORY         = 'NC', '-------'
         CONSTRUCTION        = 'CN', 'Construction'
         SPECIAL_EVENT       = 'SE', 'Special Event'
         INCIDENT            = 'IC', 'Incident'
@@ -44,7 +45,7 @@ class Task(models.Model):
         verbose_name = 'Category',
         max_length=2,
         choices=Categories.choices,
-        default=Categories.CONSTRUCTION,
+        default=Categories.NO_CATEGORY,
     )
 
     def __str__(self):
