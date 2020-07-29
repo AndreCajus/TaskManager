@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
 class Task(models.Model):
 
     class Categories(models.TextChoices):
-        CONSTRUCTION        = 'CN', 'Consruction'
+        CONSTRUCTION        = 'CN', 'Construction'
         SPECIAL_EVENT       = 'SE', 'Special Event'
         INCIDENT            = 'IC', 'Incident'
         WEATHER_CONDITION   = 'WC', 'Weather Condition'
