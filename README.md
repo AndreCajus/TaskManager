@@ -14,14 +14,9 @@ c) After running the API, you can use the [Collection](https://github.com/AndreC
 
 
 ### Images
-
 <br>
-
-a) Register Models - admin
 <img src="external_content/models_admin.png" style="width: 100%;">
-
-b) Task content - admin
+<br>
 <img src="external_content/post_gis.png" style="width: 100%;">
-
-c) Swagger
+<br>
 <img src="external_content/swagger_api.png" style="width: 100%;">
