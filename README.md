@@ -75,7 +75,7 @@ c) After running the API, you can use the [Collection](https://github.com/AndreC
 | test_put_existing_task_with_unauthorized_user     | `HTTP_401_UNAUTHORIZED` 	| 
 | test_staff_put_task_with_state   				    | `HTTP_401_UNAUTHORIZED` 	| 
 | test_admin_put_task_with_state   				    | `HTTP_200_OK` 			| 
-| test_staff_put_task_update_state_to_validate      | `HTTP_201_CREATED` 		| 
+| test_staff_put_task_auto_update_state_to_validate | `HTTP_201_CREATED` 		| 
 | **View Tasks**       								| ------------------------- |
 | test_view_existing_task	    					| `HTTP_200_OK`	 			|
 | test_view_unexisting_task        					| `HTTP_404_NOT_FOUND`		| 

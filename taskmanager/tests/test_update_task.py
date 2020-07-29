@@ -43,7 +43,7 @@ class TestUpdateTaskAPI(TestTasksSetUp):
         self.assertEqual(response.status_code, status.HTTP_200_OK) 
 
     # if staff updates existing verified state, state should become not verified
-    def test_staff_put_task_update_state_to_validate(self):
+    def test_staff_put_task_auto_update_state_to_validate(self):
         # put with status "Resolved"
         self.client.put(self.put_task_url,
                                     {'id' : self.task_id,
