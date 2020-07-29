@@ -10,13 +10,21 @@ services:
   web:
     build:
       context: .
-      dockerfile: ./dockerfile/Dockerfile
+      dockerfile: ./services/Dockerfile
     env_file: 
       - ./docker-env/dev.env
     command: 
       - ./execute-docker-dev.sh
-    ports:
-      - "8080:8080"
+    expose: 
+      - 8080
     depends_on:
       - db
     restart: always
+  nginx:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports: 
+      - 3000:80
+    depends_on:
+      - web

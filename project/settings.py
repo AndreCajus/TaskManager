@@ -28,7 +28,8 @@ if os.name == "nt":
         #PARA CORRER LOCALMENTE
         #path para a libraria GDAL
         GDAL_LIBRARY_PATH = r'C:\OSGeo4W\bin\gdal300'
-        pass
+
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -129,29 +130,18 @@ WSGI_APPLICATION = 'project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-#docker
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.contrib.gis.db.backends.postgis',
-#        'NAME': os.environ.get("POSTGRES_DB", 'bota5'),
-#        'USER': os.environ.get("POSTGRES_USER",'postgresuser3'),
-#        'PASSWORD': os.environ.get("POSTGRES_PASS", 'passpass13'),
-#        'HOST': os.environ.get("POSTGRES_HOST", '192.168.99.100'),
-#        'PORT': '5432',
-#    }
-#}
-
-#local
+#docker env and local variables
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'bota5',
-        'USER': 'postgres',
-        'PASSWORD': 'admin',
-        'HOST': 'localhost',
+        'NAME': os.environ.get("POSTGRES_DB", 'bota5'),
+        'USER': os.environ.get("POSTGRES_USER",'postgres'),
+        'PASSWORD': os.environ.get("POSTGRES_PASS", 'admin'),
+        'HOST': os.environ.get("POSTGRES_HOST", 'localhost'),
         'PORT': '5432',
     }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -190,3 +180,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, "static/")
