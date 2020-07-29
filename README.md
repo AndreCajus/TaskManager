@@ -23,7 +23,7 @@ c) After running the API, you can use the [Collection](https://github.com/AndreC
 | Create Account 			       				| Expected HTTP Response	|
 | -------------         						| ------------- 			|
 | test_create_account_mandatory_parameters      | HTTP_201_CREATED 			|
-| test_create_account_with_some_possibilities   | HTTP_400_BAD_REQUEST		| 
+| test_create_account_with_some_possibilities   | HTTP_201_CREATED  		| 
 | test_create_account_missing_parameters        | HTTP_400_BAD_REQUEST 		| 
 | test_create_account_wrong_email          		| HTTP_400_BAD_REQUEST 		| 
 | test_create_account_token_correctly_generated | HTTP_201_CREATED 			| 
