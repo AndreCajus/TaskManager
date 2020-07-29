@@ -25,7 +25,8 @@ class TestUpdateTaskAPI(TestTasksSetUp):
     def test_staff_put_task_with_state(self):
         self.client2.post(self.create_task_url, self.task_data)
         response = self.client2.put(self.put_task_url,
-                                    {'description': 'test_task', 
+                                    {'id' : self.task_id,
+                                    'description' : 'teste',
                                     'states': 'RV'})
         #print(response.data)
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED) 
@@ -34,20 +35,21 @@ class TestUpdateTaskAPI(TestTasksSetUp):
     def test_admin_put_task_with_state(self):
         self.client2.post(self.create_task_url, self.task_data)
         response = self.client.put(self.put_task_url,
-                                    {'description': 'test_task', 
+                                    {'id' : self.task_id,
+                                    'description' : 'teste',
                                     'states': 'RV'})
         #print(response.data)
         self.assertEqual(response.status_code, status.HTTP_200_OK) 
 
     # if staff updates existing verified state, state should become not verified
-    def test_staff_create_task_update_state_to_validate(self):
-        # post with status "Resolved"
-        self.client.post(self.create_task_url,
-                        {'description': 'test_task', 
-                        'states': 'RV'})
+    def test_staff_put_task_update_state_to_validate(self):
+        # put with status "Resolved"
+        self.client.put(self.put_task_url,
+                                    {'id' : self.task_id,
+                                    'description' : 'teste',
+                                    'states': 'RV'})
         # update without status
-        self.client2.put(self.put_task_url, {'description': 'test_task'})
-        r = self.client2.get(self.get_task_url, {'description': 'test_task'})
+        self.client2.put(self.put_task_url, {'description' : 'teste2'})
+        r = self.client2.get(self.get_task_url, {'id' : self.task_id})
         # status should automatically update to "To Validate"
-        state = r.data['states']
-        self.assertEqual(state, 'TV') 
+        self.assertEqual(r.data['states'], 'TV') 

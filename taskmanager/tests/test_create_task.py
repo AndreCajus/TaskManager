@@ -5,7 +5,7 @@ from .tests_setup import TestTasksSetUp
 
 class TestCreateTaskAPI(TestTasksSetUp):
    
-    post_task = {'description': 'post_task'} 
+    post_task = {'description': 'posttest'} 
 
     def test_create_task_mandatory_parameters(self):
         response = self.client.post(self.create_task_url, self.post_task)

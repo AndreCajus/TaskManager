@@ -13,8 +13,8 @@
         - ./execute-docker-dev.sh
       volumes:
         - .:/code
-        -
       ports:
-        - "8000:8000"
+        - "8080:8080"
       depends_on:
         - db
+      restart: always

@@ -41,6 +41,7 @@ def get_account(request, username):
     return Response(serializer.data)
 
 
+@swagger_auto_schema(method='put' , request_body=AccountSerializer)
 @api_view(['PUT'])
 @permission_classes((IsAuthenticated,))
 def put_account(request, username):

@@ -15,7 +15,7 @@ from taskmanager.serializers import (TaskSerializerBasicAccess,
 from .models import Task
 
 
-@swagger_auto_schema(method='post' , request_body=TaskSerializerBasicAccess)
+@swagger_auto_schema(method='post', request_body=TaskSerializerFullAcess)
 @api_view(['POST', ])
 @permission_classes((IsAuthenticated,))
 def create_task(request):
@@ -45,22 +45,23 @@ def create_task(request):
 
 @api_view(['GET'])
 @permission_classes((IsAuthenticated,))
-def get_task(request, description):
+def get_task(request, pk):
     try:
-        task_post = Task.objects.get(description=description)
+        task_post = Task.objects.get(pk=pk)
     except Task.DoesNotExist:
-        return Response({'missing' : 'There is no task with this description.'},
+        return Response({'missing' : 'There is no task with the pk = ' + str(pk) + '.'},
                         status=status.HTTP_404_NOT_FOUND)
     return Response(TaskSerializerBasicAccess(task_post).data)
 
 
+@swagger_auto_schema(method='put' , request_body=TaskSerializerFullAcess)
 @api_view(['PUT'])
 @permission_classes((IsAuthenticated,))
-def put_task(request, description):
+def put_task(request, pk):
     try:
-        task_post = Task.objects.get(description=description)
+        task_post = Task.objects.get(pk=pk)
     except Task.DoesNotExist:
-        return Response({'missing' : 'There is no task with this description.'},
+        return Response({'missing' : 'There is no task with the pk = ' + str(pk) + '.'},
                         status=status.HTTP_404_NOT_FOUND)
 
     #TODO improve this section
@@ -83,40 +84,41 @@ def put_task(request, description):
         
     if serializer.is_valid():
         serializer.save()
-        return Response({'success' : "The task '" + description + \
+        return Response({'success' : "The task with id: '" + str(pk)  + \
                         "' was successfully updated."})
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+@swagger_auto_schema(method='put' , request_body=TaskSerializerFullAcess)
 @api_view(['PUT'])
 @permission_classes((IsAdminUser,))
-def validate_task(request, description):
+def validate_task(request, pk):
     try:
-        task_post = Task.objects.get(description=description)
+        task_post = Task.objects.get(pk=pk)
     except Task.DoesNotExist:
-        return Response({'missing' : 'There is no task with this description.'},
+        return Response({'missing' : 'There is no task with this id.'},
                         status=status.HTTP_404_NOT_FOUND)
     serializer = TaskSerializerFullAcess(task_post, data=request.data)
 
     if serializer.is_valid():
         serializer.save()
-        return Response({'success' : "The task '" + description + \
+        return Response({'success' : "The task with id: '" + str(pk)  + \
                         "' was successfully updated."})
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['DELETE'])
 @permission_classes((IsAuthenticated,))
-def delete_task(request, description):
+def delete_task(request, pk):
     try:
-        task_post = Task.objects.get(description=description)
+        task_post = Task.objects.get(pk=pk)
     except Task.DoesNotExist:
-        return Response({'missing' : 'There is no task with this description.'},
+        return Response({'missing' : 'There is no task with this id.'},
                          status=status.HTTP_404_NOT_FOUND)
     operation = task_post.delete()  
     data = {}
     if operation:
-        data["success"] = "The task '" + description + \
+        data["success"] = "The task with id: '" + str(pk) + \
                         "' was successfully deleted."
     else:
         data["failure"] = "delete failed"
