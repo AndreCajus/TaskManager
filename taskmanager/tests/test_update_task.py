@@ -1,6 +1,7 @@
 from rest_framework import status
 from .tests_setup import TestTasksSetUp
 from django.urls import reverse
+from taskmanager.models import Task
 
 class TestUpdateTaskAPI(TestTasksSetUp):
 
@@ -27,7 +28,7 @@ class TestUpdateTaskAPI(TestTasksSetUp):
         response = self.client2.put(self.put_task_url,
                                     {'id' : self.task_id,
                                     'description' : 'teste',
-                                    'states': 'RV'})
+                                    'states': Task.States.RESOLVED})
         #print(response.data)
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED) 
 
@@ -37,7 +38,7 @@ class TestUpdateTaskAPI(TestTasksSetUp):
         response = self.client.put(self.put_task_url,
                                     {'id' : self.task_id,
                                     'description' : 'teste',
-                                    'states': 'RV'})
+                                    'states': Task.States.RESOLVED})
         #print(response.data)
         self.assertEqual(response.status_code, status.HTTP_200_OK) 
 
@@ -47,9 +48,9 @@ class TestUpdateTaskAPI(TestTasksSetUp):
         self.client.put(self.put_task_url,
                                     {'id' : self.task_id,
                                     'description' : 'teste',
-                                    'states': 'RV'})
+                                    'states': Task.States.RESOLVED})
         # update without status
         self.client2.put(self.put_task_url, {'description' : 'teste2'})
         r = self.client2.get(self.get_task_url, {'id' : self.task_id})
         # status should automatically update to "To Validate"
-        self.assertEqual(r.data['states'], 'TV') 
+        self.assertEqual(r.data['states'], Task.States.TO_VALIDATE) 

@@ -83,7 +83,7 @@ def put_task(request, pk):
         serializer = TaskSerializerFullAcess(task_post, data=request.data)
     else:
         # this line is essential, since if a normal user updates a entry, it needs to be valitaded again, TaskSerializerFullAcess needed
-        task_post.states = 'TV'
+        task_post.states = Task.States.TO_VALIDATE
         serializer = TaskSerializerFullAcess(task_post, data=request.data)
         
     if serializer.is_valid():
@@ -102,7 +102,7 @@ def validate_task(request, pk):
     except Task.DoesNotExist:
         return Response({'missing' : 'There is no task with this id.'},
                         status=status.HTTP_404_NOT_FOUND)
-    task_post.states = 'VT'
+    task_post.states = Task.States.VALIDATED
     serializer = TaskSerializerValidation(task_post, data=request.data)
 
     if serializer.is_valid():
