@@ -11,6 +11,8 @@ class TestCreateTaskAPI(TestTasksSetUp):
     def test_create_task_mandatory_parameters(self):
         response = self.client.post(self.create_task_url, self.post_task)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)  
+        # depende do serializador TaskSerializerFullAcess 7 params
+        self.assertEqual(len(response.data), 7) 
 
     def test_create_task_missing_parameters(self):
         response = self.client.post(self.create_task_url, {})
@@ -34,3 +36,5 @@ class TestCreateTaskAPI(TestTasksSetUp):
                                     {'description': 'test_task2', 
                                     'states': Task.States.RESOLVED})
         self.assertEqual(response.status_code, status.HTTP_201_CREATED) 
+        # depende do serializador TaskSerializerFullAcess 7 params
+        self.assertEqual(len(response.data), 7)

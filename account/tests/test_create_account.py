@@ -10,7 +10,8 @@ class TestCreateAccountAPI(TestAccountsSetUp):
 
     def test_create_account_mandatory_parameters(self):
         response = self.client.post(self.create_account_url, self.post_account)
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)  
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED) 
+        self.assertEqual(len(response.data), 2) 
 
 
     def test_create_account_with_some_possibilities(self):
