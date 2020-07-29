@@ -19,4 +19,4 @@ c) After running the API, you can use the [Collection](https://github.com/AndreC
 <br>
 <img src="external_content/post_gis.png" style="width: 100%;">
 <br>
-<img src="external_content/swagger_api.png" style="width: 100%;">
+<img src="external_content/swagger.png" style="width: 100%;">
