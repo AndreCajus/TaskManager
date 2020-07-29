@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Task
+from django_filters import rest_framework as filters
 
 
 class TaskSerializerFullAcess(serializers.ModelSerializer):
@@ -21,6 +22,12 @@ class TaskSerializerBasicAccess(serializers.ModelSerializer):
             'author': {'read_only': True},
             'id': {'read_only': True}
         }
+
+# to be used by taskFilter at the view
+class TaskFilter(filters.FilterSet):
+    class Meta:
+        model = Task
+        fields = ('author', 'category')
 
 
 

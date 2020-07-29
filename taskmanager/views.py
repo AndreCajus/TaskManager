@@ -11,7 +11,8 @@ from rest_framework.response import Response
 from django_filters import rest_framework as filters
 
 from taskmanager.serializers import (TaskSerializerBasicAccess,
-                                     TaskSerializerFullAcess)
+                                     TaskSerializerFullAcess,
+                                     TaskFilter)
 
 from .models import Task
 
@@ -134,10 +135,7 @@ class ListTasks(ListAPIView):
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_fields = ('author', 'category')
     serializer_class = TaskSerializerBasicAccess
-class TaskFilter(filters.FilterSet):
-    class Meta:
-        model = Task
-        fields = ('author', 'category')
+
 
 """
 # https://www.django-rest-framework.org/api-guide/filtering/
