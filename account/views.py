@@ -22,7 +22,6 @@ def create_account(request):
     if serializer.is_valid():
         account = serializer.save()
         data['response'] = "The account of the user '" + account.username + \
-                            "' with the email '" + account.email + \
                             "' was successfuly registred!"
         token = Token.objects.get(user=account).key
         data['token'] = token

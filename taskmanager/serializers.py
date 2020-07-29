@@ -27,6 +27,13 @@ class TaskSerializerBasicAccess(serializers.ModelSerializer):
             'update_date': {'read_only': True},
         }
 
+# so the states is always default on create operation and only admins can update it
+class TaskSerializerValidation(serializers.ModelSerializer):
+    class Meta:
+        model = Task
+        fields = ['states']
+
+
 from django.db.models import Q
 from django.contrib.gis.geos import Point
 # to be used by taskFilter at the view

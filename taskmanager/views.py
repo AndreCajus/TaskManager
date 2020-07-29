@@ -12,6 +12,7 @@ from django_filters import rest_framework as filters
 
 from taskmanager.serializers import (TaskSerializerBasicAccess,
                                      TaskSerializerFullAcess,
+                                     TaskSerializerValidation,
                                      TaskFilter)
 
 from .models import Task
@@ -92,8 +93,8 @@ def put_task(request, pk):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@swagger_auto_schema(method='put' , request_body=TaskSerializerFullAcess)
-@api_view(['PUT'])
+@swagger_auto_schema(method='patch' , request_body=TaskSerializerFullAcess)
+@api_view(['PATCH'])
 @permission_classes((IsAdminUser,))
 def validate_task(request, pk):
     try:
@@ -101,12 +102,13 @@ def validate_task(request, pk):
     except Task.DoesNotExist:
         return Response({'missing' : 'There is no task with this id.'},
                         status=status.HTTP_404_NOT_FOUND)
-    serializer = TaskSerializerFullAcess(task_post, data=request.data)
+    task_post.states = 'VT'
+    serializer = TaskSerializerValidation(task_post, data=request.data)
 
     if serializer.is_valid():
         serializer.save()
         return Response({'success' : "The task with id: '" + str(pk)  + \
-                        "' was successfully updated."})
+                        "' was successfully validated."})
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -135,6 +137,8 @@ class ListTasks(ListAPIView):
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_fields = ('author', 'category')
     serializer_class = TaskSerializerBasicAccess
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
 
 
 """
@@ -153,10 +157,7 @@ class ListTasks(ListAPIView):
 
 class ListInvalidTasks(ListAPIView):
     queryset = Task.objects.filter(states__exact="TV")
+    filter_backends = (filters.DjangoFilterBackend,)
     serializer_class = TaskSerializerBasicAccess
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
-    pagination_class = PageNumberPagination
-    filter_backends = (SearchFilter, OrderingFilter)
-    search_fields = ('author__username', 'category', 'loc_geo')
-    ordering_filds = ('author__username', 'category', 'loc_geo')  
