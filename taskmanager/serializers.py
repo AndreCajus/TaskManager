@@ -22,3 +22,6 @@ class TaskSerializerBasicAccess(serializers.ModelSerializer):
             'id': {'read_only': True}
         }
 
+
+
+

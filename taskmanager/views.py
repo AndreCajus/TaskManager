@@ -8,6 +8,7 @@ from rest_framework.generics import ListAPIView
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
+from django_filters import rest_framework as filters
 
 from taskmanager.serializers import (TaskSerializerBasicAccess,
                                      TaskSerializerFullAcess)
@@ -29,6 +30,7 @@ def create_task(request):
     except:
         pass
 
+    # if i am a superuser i dont wana post and then validate, i want to validate right away
     if not request.user.is_superuser and data_contains_state:
         return Response({'failed':'To post a state you must be a system admin.'}, 
                         status=status.HTTP_401_UNAUTHORIZED)
@@ -125,6 +127,19 @@ def delete_task(request, pk):
     return Response(data=data)
 
 
+
+# To list tasks and filter 
+class ListTasks(ListAPIView):
+    queryset = Task.objects.all()
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_fields = ('author', 'category')
+    serializer_class = TaskSerializerBasicAccess
+class TaskFilter(filters.FilterSet):
+    class Meta:
+        model = Task
+        fields = ('author', 'category')
+
+"""
 # https://www.django-rest-framework.org/api-guide/filtering/
 class ListTasks(ListAPIView):
     queryset = Task.objects.all()
@@ -136,7 +151,7 @@ class ListTasks(ListAPIView):
     #?search=staff&ordering=-loc_geo
     search_fields = ('author__username', 'category', 'loc_geo')
     ordering_filds = ('author__username', 'category', 'loc_geo')  
-
+"""
 
 class ListInvalidTasks(ListAPIView):
     queryset = Task.objects.filter(states__exact="TV")
