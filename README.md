@@ -61,7 +61,9 @@ c) After running the API, you can use the [Collection](https://github.com/AndreC
 2.2. Tasks
 
 
-| **Create Tasks**       						    | **Expected HTTP Response**|
+| Tests     						                | Expected HTTP Response	|
+| -------------         					        | ------------- 			|
+| **Create Tasks**      						                                |
 | test_create_task_mandatory_parameters	            | HTTP_201_CREATED 			|
 | test_create_task_missing_parameters   	        | HTTP_400_BAD_REQUEST		| 
 | test_create_task_wrong_category          	        | HTTP_400_BAD_REQUEST 		| 
