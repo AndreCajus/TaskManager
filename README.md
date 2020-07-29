@@ -3,7 +3,6 @@
 
 ### Postman
 
-<br>
 
 a) At the project structure, I provide the JSONs to set up the API Postman collection and its environment.
 
@@ -12,9 +11,6 @@ b) You should place a valid Token on the [Environment Variables](https://github.
 
 
 c) After running the API, you can use the [Collection](https://github.com/AndreCajus/TaskManager/blob/master/external_content/ubiwhere.postman_collection.json) to test the services.
-
-<br>
-
 
 
 ### Images
