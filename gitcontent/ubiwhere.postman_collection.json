@@ -1,0 +1,640 @@
+{
+	"info": {
+		"_postman_id": "3ecab380-23d3-482a-97f5-40875c2993ae",
+		"name": "ubiwhere",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Tasks",
+			"item": [
+				{
+					"name": "api/tasks/create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "description",
+									"value": "example",
+									"type": "text"
+								},
+								{
+									"key": "loc_geo",
+									"value": "{{pointField}}",
+									"type": "text"
+								},
+								{
+									"key": "category",
+									"value": "CN",
+									"type": "text"
+								},
+								{
+									"key": "",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/tasks/create",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"tasks",
+								"create"
+							]
+						},
+						"description": "Creates a task based on form-data. \r\n\r\nAdmin = ['description', 'loc_geo', 'creation_date', 'update_date', 'category', 'states']\r\n\r\nOthers = ['description', 'loc_geo', 'creation_date', 'update_date', 'category']"
+					},
+					"response": []
+				},
+				{
+					"name": "api/tasks/{pk}/update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "description",
+									"value": "api/tasks/{id}/update",
+									"type": "text"
+								},
+								{
+									"key": "loc_geo",
+									"value": "POINT(12.3232323 -34.232323)",
+									"type": "text"
+								},
+								{
+									"key": "category",
+									"value": "CN",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/tasks/{id}/update",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"tasks",
+								"{id}",
+								"update"
+							]
+						},
+						"description": "Creates a task based on form-data. \r\n\r\nAdmin = ['description', 'loc_geo', 'creation_date', 'update_date', 'category', 'states']\r\n\r\nOthers = ['description', 'loc_geo', 'creation_date', 'update_date', 'category']"
+					},
+					"response": []
+				},
+				{
+					"name": "api/tasks/{pk}/validate",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{url}}/api/tasks/{id}/validate",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"tasks",
+								"{id}",
+								"validate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/tasks/{pk}/delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{url}}/api/tasks/{id}/delete",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"tasks",
+								"{id}",
+								"delete"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/tasks/{pk}",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "description",
+									"value": "example1",
+									"type": "text"
+								},
+								{
+									"key": "loc_geo",
+									"value": "POINT(12.3232323 -34.232323)",
+									"type": "text"
+								},
+								{
+									"key": "category",
+									"value": "CN",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{ulr}}/api/tasks/{id}",
+							"host": [
+								"{{ulr}}"
+							],
+							"path": [
+								"api",
+								"tasks",
+								"{id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api/tasks/list",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Token {{token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "description",
+									"value": "example1",
+									"type": "text"
+								},
+								{
+									"key": "loc_geo",
+									"value": "POINT(12.3232323 -34.232323)",
+									"type": "text"
+								},
+								{
+									"key": "category",
+									"value": "CN",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/tasks/list?author=16&category=CN",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"tasks",
+								"list"
+							],
+							"query": [
+								{
+									"key": "author",
+									"value": "16"
+								},
+								{
+									"key": "category",
+									"value": "CN"
+								},
+								{
+									"key": "limit",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "2",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Creates a task based on form-data. \r\n\r\nAdmin = ['description', 'loc_geo', 'creation_date', 'update_date', 'category', 'states']\r\n\r\nOthers = ['description', 'loc_geo', 'creation_date', 'update_date', 'category']"
+					},
+					"response": []
+				},
+				{
+					"name": "api/tasks/invalid/list",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Token {{token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/tasks/invalid/list",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"tasks",
+								"invalid",
+								"list"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "2",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Creates a task based on form-data. \r\n\r\nAdmin = ['description', 'loc_geo', 'creation_date', 'update_date', 'category', 'states']\r\n\r\nOthers = ['description', 'loc_geo', 'creation_date', 'update_date', 'category']"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Accounts",
+			"item": [
+				{
+					"name": "api/accounts/create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Token {{token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "example2@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "example2",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "example2",
+									"type": "text"
+								},
+								{
+									"key": "is_active",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "is_staff",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "is_superuser",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/accounts/create",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"accounts",
+								"create"
+							]
+						},
+						"description": "Creates a Account based on form-data. \r\n\r\nfields = ['email', 'username', 'password',  'is_active',  'is_staff',  'is_superuser']\r\n"
+					},
+					"response": []
+				},
+				{
+					"name": "api/accounts/{username}",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Token {{token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{url}}/api/accounts/{username}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"accounts",
+								"{username}"
+							]
+						},
+						"description": "Gets an account.\r\n"
+					},
+					"response": []
+				},
+				{
+					"name": "api/accounts/{username}/update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Token {{token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "example@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "example",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "example",
+									"type": "text"
+								},
+								{
+									"key": "is_active",
+									"value": "True",
+									"type": "text"
+								},
+								{
+									"key": "is_staff",
+									"value": "True",
+									"type": "text"
+								},
+								{
+									"key": "is_superuser",
+									"value": "True",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/accounts/{username}/update",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"accounts",
+								"{username}",
+								"update"
+							]
+						},
+						"description": "Updates an account.\r\n\r\nfields = ['email', 'username', 'password',  'is_active',  'is_staff',  'is_superuser']"
+					},
+					"response": []
+				},
+				{
+					"name": "api/accounts/{username}/delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Token {{token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "example@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "example",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "example",
+									"type": "text"
+								},
+								{
+									"key": "is_active",
+									"value": "True",
+									"type": "text"
+								},
+								{
+									"key": "is_staff",
+									"value": "True",
+									"type": "text"
+								},
+								{
+									"key": "is_superuser",
+									"value": "True",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/accounts/{username}/delete",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"accounts",
+								"{username}",
+								"delete"
+							]
+						},
+						"description": "Deletes an account.\r\n"
+					},
+					"response": []
+				},
+				{
+					"name": "api/accounts/list",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"type": "text",
+								"value": "Token {{token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "example@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "example",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "example",
+									"type": "text"
+								},
+								{
+									"key": "is_active",
+									"value": "True",
+									"type": "text"
+								},
+								{
+									"key": "is_staff",
+									"value": "True",
+									"type": "text"
+								},
+								{
+									"key": "is_superuser",
+									"value": "True",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/accounts/list",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"accounts",
+								"list"
+							]
+						},
+						"description": "Lists accounts.\r\n"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

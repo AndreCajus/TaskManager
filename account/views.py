@@ -91,6 +91,7 @@ class ListAccounts(ListAPIView):
     serializer_class = AccountSerializer
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
+    #important so it doesnt query all database entry at once, furthermore helps with possible frontend pagination
     pagination_class = PageNumberPagination
     filter_backends = (SearchFilter, OrderingFilter)
     search_fields = ('email', 'username')

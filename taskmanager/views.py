@@ -134,6 +134,7 @@ def delete_task(request, pk):
 # To list tasks and filter 
 class ListTasks(ListAPIView):
     queryset = Task.objects.all()
+    pagination_class = PageNumberPagination
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_fields = ('author', 'category')
     serializer_class = TaskSerializerBasicAccess
@@ -157,6 +158,7 @@ class ListTasks(ListAPIView):
 
 class ListInvalidTasks(ListAPIView):
     queryset = Task.objects.filter(states__exact="TV")
+    pagination_class = PageNumberPagination
     filter_backends = (filters.DjangoFilterBackend,)
     serializer_class = TaskSerializerBasicAccess
     authentication_classes = (TokenAuthentication,)

@@ -34,11 +34,8 @@ class TaskSerializerValidation(serializers.ModelSerializer):
         fields = ['states']
 
 
-from django.db.models import Q
-from django.contrib.gis.geos import Point
 # to be used by taskFilter at the view
 class TaskFilter(filters.FilterSet):
-
     class Meta:
         model = Task
         fields = ('author', 'category')

@@ -1,6 +1,12 @@
 ### TASKs and ACCOUNTs API
 <hr>
 
+### Postman
+
+env) [a link](https://github.com/user/repo/blob/branch/other_file.md)
+
+collection) [a link](https://github.com/user/repo/blob/branch/other_file.md)
+
 ### Images
 
 1) Register Models - admin
