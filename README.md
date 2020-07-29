@@ -80,10 +80,3 @@ c) After running the API, you can use the [Collection](https://github.com/AndreC
 | test_view_existing_task	    					| `HTTP_200_OK`	 			|
 | test_view_unexisting_task        					| `HTTP_404_NOT_FOUND`		| 
 | test_view_existing_task_with_unauthorized_user    | `HTTP_401_UNAUTHORIZED` 	| 
-
-
-### 4. Aditional to the APIs
-<br>
-<img src="external_content/models_admin.png" style="width: 100%;">
-<br>
-<img src="external_content/post_gis.png" style="width: 100%;">
