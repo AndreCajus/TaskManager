@@ -5,7 +5,13 @@
 <hr>
 
 
-### 1. Postman
+### 1. Services
+
+<br>
+<img src="external_content/services.png" style="width: 100%;">
+
+
+### 2. Postman
 
 
 a) At the project structure, I provide the JSONs to set up the API Postman collection and its environment.
@@ -17,7 +23,7 @@ b) You should place a valid Token on the [Environment Variables](https://github.
 c) After running the API, you can use the [Collection](https://github.com/AndreCajus/TaskManager/blob/master/external_content/ubiwhere.postman_collection.json) to test the services.
 
 
-### 2. Testes
+### 3. Testes
 
 
 | Tasks Accounts    						        | Expected HTTP Response	|
@@ -46,6 +52,9 @@ c) After running the API, you can use the [Collection](https://github.com/AndreC
 | test_view_existing_account_with_unauthorized_user | `HTTP_401_UNAUTHORIZED` 	| 
 
 
+<br>
+
+
 | Tasks Tests    						            | Expected HTTP Response	|
 | -------------         					        | ------------- 			|
 | **Create Tasks**      						    | ------------------------- |
@@ -72,7 +81,7 @@ c) After running the API, you can use the [Collection](https://github.com/AndreC
 | test_view_existing_task_with_unauthorized_user    | `HTTP_401_UNAUTHORIZED` 	| 
 
 
-### 3. Aditional to the APIs
+### 4. Aditional to the APIs
 <br>
 <img src="external_content/models_admin.png" style="width: 100%;">
 <br>
