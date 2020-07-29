@@ -3,9 +3,9 @@
 
 ### Postman
 
-env) [a link](https://github.com/user/repo/blob/branch/other_file.md)
+env) [a link](https://github.com/AndreCajus/TaskManager/blob/master/gitcontent/dev-ubiwhere-env.postman_environment.json)
 
-collection) [a link](https://github.com/user/repo/blob/branch/other_file.md)
+collection) [a link](https://github.com/AndreCajus/TaskManager/blob/master/gitcontent/ubiwhere.postman_collection.json)
 
 ### Images
 
