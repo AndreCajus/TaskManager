@@ -24,10 +24,10 @@ b) You should place a valid Token on the [Environment Variables](https://github.
 c) After running the API, you can use the [Collection](https://github.com/AndreCajus/TaskManager/blob/master/external_content/ubiwhere.postman_collection.json) to test the services.
 
 
-### 3. Testes
+### 3. Tests
 
 
-| Tasks Accounts    						        | Expected HTTP Response	|
+| Accounts    						                | Expected HTTP Response	|
 | -------------         					        | ------------- 			|
 | **Create Account** 			       				| ------------------------- |
 | test_create_account_mandatory_parameters          | `HTTP_201_CREATED`		|
@@ -56,7 +56,7 @@ c) After running the API, you can use the [Collection](https://github.com/AndreC
 <br>
 
 
-| Tasks Tests    						            | Expected HTTP Response	|
+| Tasks         						            | Expected HTTP Response	|
 | -------------         					        | ------------- 			|
 | **Create Tasks**      						    | ------------------------- |
 | test_create_task_mandatory_parameters	            | `HTTP_201_CREATED` 		|
