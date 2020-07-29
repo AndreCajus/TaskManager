@@ -1,7 +1,11 @@
 ### TASKs and ACCOUNTs API
 <hr>
 
-### Postman
+
+<hr>
+
+
+### 1. Postman
 
 
 a) At the project structure, I provide the JSONs to set up the API Postman collection and its environment.
@@ -13,11 +17,11 @@ b) You should place a valid Token on the [Environment Variables](https://github.
 c) After running the API, you can use the [Collection](https://github.com/AndreCajus/TaskManager/blob/master/external_content/ubiwhere.postman_collection.json) to test the services.
 
 
-### Testes
+### 2. Testes
 
 
 
-1) Accounts
+2.1. Accounts
 
 
 | Create Account 			       				| Expected HTTP Response	|
@@ -54,7 +58,7 @@ c) After running the API, you can use the [Collection](https://github.com/AndreC
 | test_view_existing_account_with_unauthorized_user | HTTP_401_UNAUTHORIZED 	| 
 
 
-2) Tasks
+2.2. Tasks
 
 
 | Create Tasks       						| Expected HTTP Response	|
@@ -73,26 +77,24 @@ c) After running the API, you can use the [Collection](https://github.com/AndreC
 | test_delete_task_with_unauthorized_user   | HTTP_401_UNAUTHORIZED 	| 
 
 
-| Update Tasks       							| Expected HTTP Response	|
-| -------------         						| ------------- 			|
-| test_put_existing_task	    				| HTTP_200_OK	 			|
-| test_put_existing_task_missing_parameters   	| HTTP_400_BAD_REQUEST		| 
-| test_put_unexisting_task   					| HTTP_404_NOT_FOUND 		| 
-| test_put_existing_task_with_unauthorized_user | HTTP_401_UNAUTHORIZED 	| 
-| test_staff_put_task_with_state   				| HTTP_401_UNAUTHORIZED 	| 
-| test_admin_put_task_with_state   				| HTTP_200_OK 				| 
-| test_staff_put_task_update_state_to_validate  | HTTP_201_CREATED 			| 
-
-
-| View Tasks       									| Expected HTTP Response	|
+| Update Tasks       							    | Expected HTTP Response	|
+| -------------         						    | ------------- 			|
+| test_put_existing_task	    				    | HTTP_200_OK	 			|
+| test_put_existing_task_missing_parameters   	    | HTTP_400_BAD_REQUEST		| 
+| test_put_unexisting_task   					    | HTTP_404_NOT_FOUND 		| 
+| test_put_existing_task_with_unauthorized_user     | HTTP_401_UNAUTHORIZED 	| 
+| test_staff_put_task_with_state   				    | HTTP_401_UNAUTHORIZED 	| 
+| test_admin_put_task_with_state   				    | HTTP_200_OK 				| 
+| test_staff_put_task_update_state_to_validate      | HTTP_201_CREATED 			| 
+| View Tasks       									|   	                    |
 | -------------         							| ------------- 			|
 | test_view_existing_task	    					| HTTP_200_OK	 			|
-| test_view_unexisting_account   					| HTTP_404_NOT_FOUND		| 
-| test_view_existing_account_with_unauthorized_user | HTTP_401_UNAUTHORIZED 	| 
+| test_view_unexisting_task        					| HTTP_404_NOT_FOUND		| 
+| test_view_existing_task_with_unauthorized_user    | HTTP_401_UNAUTHORIZED 	| 
 
 
 
-### Images
+### 3. Aditional to the APIs
 <br>
 <img src="external_content/models_admin.png" style="width: 100%;">
 <br>
