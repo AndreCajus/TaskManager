@@ -22,6 +22,12 @@
 ### 1. Project Overview
 
 
+This project aims to build services to manage a set of `Users` and their `Tasks` with a small background set of business rules;
+
+
+The project contains different apps, including the ones I created ([account](https://github.com/AndreCajus/TaskManager/tree/master/account) and [taskmanager](https://github.com/AndreCajus/TaskManager/tree/master/taskmanager)),that are based on the Django Rest Framework.
+
+
 ### 2. Get Started
 
 
