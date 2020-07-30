@@ -34,7 +34,7 @@ a) Open [docker.env](https://github.com/AndreCajus/TaskManager/blob/master/docke
 b) Run the command: `docker-compose -f docker-compose-dev.yml up`;
 
 
-c) Run the command: `docker container restart project_web_1` (verify the web docker container name by using `docker ps -a`);
+c) When finish, on other window, run the command: `docker container restart project_web_1` (verify the web docker container name by using `docker ps -a`);
 
 
 d) A default admin is created on the process with the `id=useradmin` and the `pw=teste123?Aa`;
