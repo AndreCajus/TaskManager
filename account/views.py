@@ -11,7 +11,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from drf_yasg.utils import swagger_auto_schema
 
-from account.serializers import AccountSerializer
+from account.serializers import AccountSerializer, AccountSerializerReducedAccess
 
 @swagger_auto_schema(method='post' , request_body=AccountSerializer)
 @api_view(['POST', ])
@@ -36,7 +36,11 @@ def get_account(request, username):
         account_post = User.objects.get(username=username)
     except User.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
-    serializer = AccountSerializer(account_post)
+
+    if request.user.is_superuser:
+        serializer = AccountSerializer(account_post)
+    else:
+        serializer = AccountSerializerReducedAccess(account_post)
     return Response(serializer.data)
 
 
@@ -49,12 +53,16 @@ def put_account(request, username):
     except User.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
-    serializer = AccountSerializer(account_post, data=request.data)
-
-    if account_post.username != request.user and not request.user.is_superuser:
+    # only admins can change some fields
+    if request.user.is_superuser:
+        serializer = AccountSerializer(account_post, data=request.data)
+    else:
+        serializer = AccountSerializerReducedAccess(account_post, data=request.data)
+    
+    if account_post.username != str(request.user) and not request.user.is_superuser:
         return Response({'response': "Only an admin or the account user can edit the account!"},
                         status=status.HTTP_401_UNAUTHORIZED)
-        
+    
     r_data = {}
     if serializer.is_valid():
         serializer.save()
@@ -71,7 +79,8 @@ def delete_account(request, username):
         account_post = User.objects.get(username=username)
     except User.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND) 
-    if account_post.username != request.user and not request.user.is_superuser:
+
+    if account_post.username != str(request.user) and not request.user.is_superuser:
         return Response({'response': "Only an admin or the account user can delete the account!"},
                         status=status.HTTP_401_UNAUTHORIZED)
 

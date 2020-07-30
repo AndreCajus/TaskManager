@@ -12,3 +12,11 @@ class AccountSerializer(serializers.ModelSerializer):
             'password': {'write_only': True}
         }
 
+class AccountSerializerReducedAccess(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['email', 'username']
+        # so it is only possible to write and not to read
+        extra_kwargs = {
+            'password': {'write_only': True}
+        }
