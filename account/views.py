@@ -36,7 +36,7 @@ def get_account(request, username):
         account_post = User.objects.get(username=username)
     except User.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
-
+    #filter fields displayed based on serializer and user permissions
     if request.user.is_superuser:
         serializer = AccountSerializer(account_post)
     else:
