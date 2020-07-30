@@ -49,11 +49,7 @@ def put_account(request, username):
     except User.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
-    #only admins should be able to change fields like is active and so on
-    if request.user.is_superuser:
-        serializer = AccountSerializerFullAcess(account_post, data=request.data)
-    else:
-        serializer = AccountSerializer(account_post, data=request.data)
+    serializer = AccountSerializer(account_post, data=request.data)
 
     if account_post.username != request.user and not request.user.is_superuser:
         return Response({'response': "Only an admin or the account user can edit the account!"},
