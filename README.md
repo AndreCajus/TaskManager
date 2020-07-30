@@ -5,13 +5,16 @@
 
 
 ### TODO
-1) Set a production environment similar to the current development environment, but with its specific characteristics and configurations and furthermore improve both setups;
+1) Set a production environment similar to the current development environment, but with its specific characteristics and configurations;
 
 
-2) Finish filtering, it is still missing a good implementation regarding PointFields boundaries;
+2) Furthermore, improve both setups, make the process more automated;
 
 
-3) Better documentation regarding Postman collection.
+3) Finish filtering, it is still missing a good implementation regarding PointFields boundaries;
+
+
+4) Better documentation regarding Postman collection.
 
 
 ### 1. Project Overview
