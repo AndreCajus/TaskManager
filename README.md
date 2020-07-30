@@ -22,7 +22,6 @@
 ### 1. Project Overview
 
 
-
 ### 2. Get Started
 
 
@@ -80,13 +79,14 @@ e) At database do: CREATE EXTENSION postgis;
 f) Install: https://docs.djangoproject.com/en/3.0/ref/contrib/gis/install/#windows (conflicts: OSGeo4Wand python must be both the same version, OSGeo4W is the 32 bits version);
 
 
-g) Verify variable in settings: `GDAL_LIBRARY_PATH = r‘C:\OSGeo4W\bin\gdal300’` (32 bits);
+g) Verify variable in settings: `GDAL_LIBRARY_PATH = r‘C:\OSGeo4W\bin\gdal300’` (32 bits);
 
 
 h) Open `http://127.0.0.1:8000/`, get the admin Token and place it as Postman.
 
 
 ### 3. Services
+
 
 <br>
 <img src="external_content/services.png" style="width: 100%;">
@@ -95,7 +95,7 @@ h) Open `http://127.0.0.1:8000/`, get the admin Token and place it as Postman.
 ### 4. Postman
 
 
-a) At the project structure, I provide the JSONs to set up the API Postman collection and its environment.
+a) At the project structure, I provide the JSONs to set up the API Postman collection and its environment.
 
 
 b) You should place a valid Token on the [Environment Variables](https://github.com/AndreCajus/TaskManager/blob/master/external_content/dev-ubiwhere-env.postman_environment.json) after creating a user. 
@@ -107,56 +107,56 @@ c) After running the API, you can use the [Collection](https://github.com/AndreC
 ### 5. Tests
 
 
-| Accounts    						                | Expected HTTP Response	|
-| -------------         					        | ------------- 			|
-| **Create Account** 			       				| ------------------------- |
-| test_create_account_mandatory_parameters          | `HTTP_201_CREATED`		|
-| test_create_account_with_some_possibilities       | `HTTP_201_CREATED`  		| 
-| test_create_account_missing_parameters            | `HTTP_400_BAD_REQUEST` 	| 
-| test_create_account_wrong_email          		    | `HTTP_400_BAD_REQUEST` 	| 
-| test_create_account_token_correctly_generated     | `HTTP_201_CREATED` 		| 
-| **Delete Account**        						| ------------------------- |
-| test_delete_existing_account      			    | `HTTP_200_OK` 			|
-| test_delete_unexisting_account   				    | `HTTP_404_NOT_FOUND`		| 
-| test_admin_delete_other_account        		    | `HTTP_200_OK`			    | 
-| test_nonadmin_delete_other_account          	    | `HTTP_401_UNAUTHORIZED` 	| 
-| test_delete_account_with_unauthorized_user 	    | `HTTP_401_UNAUTHORIZED` 	| 
-| **Update Account**        						| ------------------------- |
-| test_put_existing_account      					| `HTTP_201_CREATED` 		|
-| test_put_existing_account_missing_parameters   	| `HTTP_400_BAD_REQUEST`	| 
-| test_put_unexisting_account        				| `HTTP_404_NOT_FOUND` 		| 
-| test_put_existing_account_with_unauthorized_user  | `HTTP_401_UNAUTHORIZED` 	| 
-| test_put_nonadmin_on_other_accout 				| `HTTP_401_UNAUTHORIZED` 	| 
-| **View Account**      							| ------------------------- |
-| test_view_existing_account      					| `HTTP_200_OK` 			|
-| test_view_unexisting_account   					| `HTTP_404_NOT_FOUND`		| 
-| test_view_existing_account_with_unauthorized_user | `HTTP_401_UNAUTHORIZED` 	| 
-
+| Accounts                                          | Expected HTTP Response    |
+| -------------                                     | -------------             |
+| **Create Account**                                | ------------------------- |
+| test_create_account_mandatory_parameters          | `HTTP_201_CREATED`        |
+| test_create_account_with_some_possibilities       | `HTTP_201_CREATED`        | 
+| test_create_account_missing_parameters            | `HTTP_400_BAD_REQUEST`    | 
+| test_create_account_wrong_email                   | `HTTP_400_BAD_REQUEST`    | 
+| test_create_account_token_correctly_generated     | `HTTP_201_CREATED`        | 
+| **Delete Account**                                | ------------------------- |
+| test_delete_existing_account                      | `HTTP_200_OK`             |
+| test_delete_unexisting_account                    | `HTTP_404_NOT_FOUND`      | 
+| test_admin_delete_other_account                   | `HTTP_200_OK`             | 
+| test_nonadmin_delete_other_account                | `HTTP_401_UNAUTHORIZED`   | 
+| test_delete_account_with_unauthorized_user        | `HTTP_401_UNAUTHORIZED`   | 
+| **Update Account**                                | ------------------------- |
+| test_put_existing_account                         | `HTTP_201_CREATED`        |
+| test_put_existing_account_missing_parameters      | `HTTP_400_BAD_REQUEST`    | 
+| test_put_unexisting_account                       | `HTTP_404_NOT_FOUND`      | 
+| test_put_existing_account_with_unauthorized_user  | `HTTP_401_UNAUTHORIZED`   | 
+| test_put_nonadmin_on_other_accout                 | `HTTP_401_UNAUTHORIZED`   | 
+| **View Account**                                  | ------------------------- |
+| test_view_existing_account                        | `HTTP_200_OK`             |
+| test_view_unexisting_account                      | `HTTP_404_NOT_FOUND`      | 
+| test_view_existing_account_with_unauthorized_user | `HTTP_401_UNAUTHORIZED`   | 
 
 <br>
 
+| Tasks                                             | Expected HTTP Response    |
+| -------------                                     | -------------             |
+| **Create Tasks**                                  | ------------------------- |
+| test_create_task_mandatory_parameters             | `HTTP_201_CREATED`        |
+| test_create_task_missing_parameters               | `HTTP_400_BAD_REQUEST`    | 
+| test_create_task_wrong_category                   | `HTTP_400_BAD_REQUEST`    | 
+| test_staff_create_task_with_state                 | `HTTP_401_UNAUTHORIZED`   | 
+| test_admin_create_task_with_state                 | `HTTP_201_CREATED`        | 
+| **Delete Tasks**                                  | ------------------------- |
+| test_delete_existing_task                         | `HTTP_200_OK`             |
+| test_delete_unexisting_task                       | `HTTP_404_NOT_FOUND`      | 
+| test_delete_task_with_unauthorized_user           | `HTTP_401_UNAUTHORIZED`   | 
+| **Update Tasks**                                  | ------------------------- |
+| test_put_existing_task                            | `HTTP_200_OK`             |
+| test_put_existing_task_missing_parameters         | `HTTP_400_BAD_REQUEST`    | 
+| test_put_unexisting_task                          | `HTTP_404_NOT_FOUND`      | 
+| test_put_existing_task_with_unauthorized_user     | `HTTP_401_UNAUTHORIZED`   | 
+| test_staff_put_task_with_state                    | `HTTP_401_UNAUTHORIZED`   | 
+| test_admin_put_task_with_state                    | `HTTP_200_OK`             | 
+| test_staff_put_task_auto_update_state_to_validate | `HTTP_201_CREATED`        | 
+| **View Tasks**                                    | ------------------------- |
+| test_view_existing_task                           | `HTTP_200_OK`             |
+| test_view_unexisting_task                         | `HTTP_404_NOT_FOUND`      | 
+| test_view_existing_task_with_unauthorized_user    | `HTTP_401_UNAUTHORIZED`   | 
 
-| Tasks         						            | Expected HTTP Response	|
-| -------------         					        | ------------- 			|
-| **Create Tasks**      						    | ------------------------- |
-| test_create_task_mandatory_parameters	            | `HTTP_201_CREATED` 		|
-| test_create_task_missing_parameters   	        | `HTTP_400_BAD_REQUEST`	| 
-| test_create_task_wrong_category          	        | `HTTP_400_BAD_REQUEST` 	| 
-| test_staff_create_task_with_state 		        | `HTTP_401_UNAUTHORIZED` 	| 
-| test_admin_create_task_with_state 		        | `HTTP_201_CREATED` 		| 
-| **Delete Tasks**      						    | ------------------------- |
-| test_delete_existing_task	    			        | `HTTP_200_OK`	 			|
-| test_delete_unexisting_task   			        | `HTTP_404_NOT_FOUND`		| 
-| test_delete_task_with_unauthorized_user           | `HTTP_401_UNAUTHORIZED` 	| 
-| **Update Tasks**       							| ------------------------- |
-| test_put_existing_task	    				    | `HTTP_200_OK`	 			|
-| test_put_existing_task_missing_parameters   	    | `HTTP_400_BAD_REQUEST`	| 
-| test_put_unexisting_task   					    | `HTTP_404_NOT_FOUND` 		| 
-| test_put_existing_task_with_unauthorized_user     | `HTTP_401_UNAUTHORIZED` 	| 
-| test_staff_put_task_with_state   				    | `HTTP_401_UNAUTHORIZED` 	| 
-| test_admin_put_task_with_state   				    | `HTTP_200_OK` 			| 
-| test_staff_put_task_auto_update_state_to_validate | `HTTP_201_CREATED` 		| 
-| **View Tasks**       								| ------------------------- |
-| test_view_existing_task	    					| `HTTP_200_OK`	 			|
-| test_view_unexisting_task        					| `HTTP_404_NOT_FOUND`		| 
-| test_view_existing_task_with_unauthorized_user    | `HTTP_401_UNAUTHORIZED` 	| 
+
