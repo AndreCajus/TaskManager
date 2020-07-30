@@ -4,15 +4,32 @@
 <hr>
 
 
+### TODO
+1) Set a production environment similar to the current development environment, but with its specific characteristics and configurations and furthermore improve both setups;
+2) Finish filtering, it is still missing a good implementation regarding PointFields boundaries;
+3) Better documentation regarding Postman collection.
 
 
-### 1. Services
+### 1. Project Overview
+
+
+
+### 2. Get Started
+
+1) Dockers
+
+
+2) Local Machine
+
+
+
+### 3. Services
 
 <br>
 <img src="external_content/services.png" style="width: 100%;">
 
 
-### 2. Postman
+### 4. Postman
 
 
 a) At the project structure, I provide the JSONs to set up the API Postman collection and its environment.
@@ -24,7 +41,7 @@ b) You should place a valid Token on the [Environment Variables](https://github.
 c) After running the API, you can use the [Collection](https://github.com/AndreCajus/TaskManager/blob/master/external_content/ubiwhere.postman_collection.json) to test the services.
 
 
-### 3. Tests
+### 5. Tests
 
 
 | Accounts    						                | Expected HTTP Response	|
