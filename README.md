@@ -10,7 +10,7 @@
 1) Set a production environment similar to the current development environment, but with its specific characteristics and configurations;
 
 
-2) Furthermore, improve both setups, make the process more automated;
+2) Improve both setups, make the process more automated;
 
 
 3) Finish filtering, it is still missing a good implementation regarding PointFields boundaries;
@@ -22,7 +22,7 @@
 ### 1. Project Overview
 
 
-This project aims to build services to manage a set of `Users` and their `Tasks` with a small background set of business rules;
+This project aims to provide services to manage a set of `Users` and their `Tasks` with a small background set of business rules;
 
 
 The project contains different apps, including the ones I created ([account](https://github.com/AndreCajus/TaskManager/tree/master/account) and [taskmanager](https://github.com/AndreCajus/TaskManager/tree/master/taskmanager)),that are based on the Django Rest Framework.
@@ -61,16 +61,16 @@ Requirements (can vary):
 -Python3.8
 
 
--PostgreSQL include postGis with help of the `Stack Builder`
+-PostgreSQL and include postGis with help of the `Stack Builder`
 
 
 Steps:
 
 
-a) Create and activate virtual environment: `python -m venv project_env` , `project_env\Scipts\ativate.bat`;
+a) Create and activate the virtual environment: `python -m venv project_env` , `project_env\Scipts\ativate.bat`;
 
 
-b) Install dependencies present on the file `requirements.txt`;
+b) Install the modules present on the file `requirements.txt`;
 
 
 c) Run something like pgadmin and create a database to map to Django project settings.py;
@@ -82,7 +82,7 @@ d) Create superuser: `python manage.py createsuperuser`;
 e) At database do: CREATE EXTENSION postgis;
 
 
-f) Install: https://docs.djangoproject.com/en/3.0/ref/contrib/gis/install/#windows (conflicts: OSGeo4Wand python must be both the same version, OSGeo4W is the 32 bits version);
+f) Install: https://docs.djangoproject.com/en/3.0/ref/contrib/gis/install/#windows (conflicts: `OSGeo4Wand` and `python` must be both the same version (32 or 64));
 
 
 g) Verify variable in settings: `GDAL_LIBRARY_PATH = r‘C:\OSGeo4W\bin\gdal300’` (32 bits);
