@@ -164,5 +164,3 @@ c) After deploying the project, you can use the [Collection](https://github.com/
 | test_view_existing_task                           | `HTTP_200_OK`             |
 | test_view_unexisting_task                         | `HTTP_404_NOT_FOUND`      | 
 | test_view_existing_task_with_unauthorized_user    | `HTTP_401_UNAUTHORIZED`   | 
-
-
