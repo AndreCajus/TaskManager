@@ -5,8 +5,12 @@
 
 
 ### TODO
-1) Set a production environment similar to the current development environment, but with its specific characteristics and configurations and furthermore improve both setups;
+1) Set a production environment similar to the current development environment, but with its specific characteristics and configurations and furthermore improve both setups;
+
+
 2) Finish filtering, it is still missing a good implementation regarding PointFields boundaries;
+
+
 3) Better documentation regarding Postman collection.
 
 
@@ -16,11 +20,62 @@
 
 ### 2. Get Started
 
-1) Dockers
+**2.1. Dockers**
+
+a) Open [docker.env](https://github.com/AndreCajus/TaskManager/blob/master/docker-env/dev.env) and change the value of the variable `POSTGRES_HOST` to the machine where the project will run;
 
 
-2) Local Machine
+b) Run the command: `docker-compose -f docker-compose-dev.yml up`;
 
+
+c) Run the command: `docker container restart project_web_1` (verify the web docker container name using `docker ps -a`);
+
+
+d) A default admin is created on the process with the `id=useradmin`and the `pw=teste123?Aa`;
+
+
+e) On browser open `< POSTGRES_HOST >:3000/admin/`, go to `Tokens` and copy the admin token;
+
+
+f) Use the token on `< POSTGRES_HOST >:3000/swagger/` by clicking at the button  `Authorize` and on postman by inserting the value `Token xxxxxxxxxxxxxxxxxxxxxx`.
+
+
+**2.2. Local Machine**
+
+Requirements (can vary):
+
+
+-Python3.8
+
+
+-PostgreSQL include postGis with help of the `Stack Builder`
+
+
+Steps:
+
+
+a) Create and activate virtual environment: `python -m venv project_env` , `project_env\Scipts\ativate.bat`;
+
+
+b) Install dependencies present on the file `requirements.txt`;
+
+
+c) Run something like pgadmin and create a database to map to Django project settings.py;
+
+
+d) Create superuser: `python manage.py createsuperuser`;
+
+
+e) At database do: CREATE EXTENSION postgis;
+
+
+f) Install: https://docs.djangoproject.com/en/3.0/ref/contrib/gis/install/#windows (conflicts: OSGeo4Wand python must be both the same version, OSGeo4W is the 32 bits version);
+
+
+g) Verify variable in settings: `GDAL_LIBRARY_PATH = r‘C:\OSGeo4W\bin\gdal300’` (32 bits);
+
+
+h) Open `http://127.0.0.1:8000/`, get the admin Token and place it as Postman.
 
 
 ### 3. Services
