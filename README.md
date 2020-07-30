@@ -5,16 +5,18 @@
 
 
 ### TODO
-1) Set a production environment similar to the current development environment, but with its specific characteristics and configurations;
 
 
-2) Furthermore, improve both setups, make the process more automated;
+1) Set a production environment similar to the current development environment, but with its specific characteristics and configurations;
 
 
-3) Finish filtering, it is still missing a good implementation regarding PointFields boundaries;
+2) Furthermore, improve both setups, make the process more automated;
 
 
-4) Better documentation regarding Postman collection.
+3) Finish filtering, it is still missing a good implementation regarding PointFields boundaries;
+
+
+4) Better documentation regarding Postman collection.
 
 
 ### 1. Project Overview
@@ -23,27 +25,30 @@
 
 ### 2. Get Started
 
+
 **2.1. Dockers**
 
-a) Open [docker.env](https://github.com/AndreCajus/TaskManager/blob/master/docker-env/dev.env) and change the value of the variable `POSTGRES_HOST` to the machine where the project will run;
+
+a) Open [docker.env](https://github.com/AndreCajus/TaskManager/blob/master/docker-env/dev.env) and change the value of the variable `POSTGRES_HOST` to the machine where the project will run;
 
 
-b) Run the command: `docker-compose -f docker-compose-dev.yml up`;
+b) Run the command: `docker-compose -f docker-compose-dev.yml up`;
 
 
-c) Run the command: `docker container restart project_web_1` (verify the web docker container name using `docker ps -a`);
+c) Run the command: `docker container restart project_web_1` (verify the web docker container name by using `docker ps -a`);
 
 
-d) A default admin is created on the process with the `id=useradmin`and the `pw=teste123?Aa`;
+d) A default admin is created on the process with the `id=useradmin` and the `pw=teste123?Aa`;
 
 
-e) On browser open `< POSTGRES_HOST >:3000/admin/`, go to `Tokens` and copy the admin token;
+e) On browser open `< POSTGRES_HOST >:3000/admin/`, go to `Tokens` and copy the admin token;
 
 
-f) Use the token on `< POSTGRES_HOST >:3000/swagger/` by clicking at the button  `Authorize` and on postman by inserting the value `Token xxxxxxxxxxxxxxxxxxxxxx`.
+f) Use the token on `< POSTGRES_HOST >:3000/swagger/` by clicking at the button  `Authorize` and on postman by inserting the value `Token xxxxxxxxxxxxxxxxxxxxxx` on the [Environment Variables](https://github.com/AndreCajus/TaskManager/blob/master/external_content/dev-ubiwhere-env.postman_environment.json).
 
 
 **2.2. Local Machine**
+
 
 Requirements (can vary):
 
