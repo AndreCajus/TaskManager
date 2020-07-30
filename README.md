@@ -88,7 +88,7 @@ f) Install: https://docs.djangoproject.com/en/3.0/ref/contrib/gis/install/#windo
 g) Verify variable in settings: `GDAL_LIBRARY_PATH = r‘C:\OSGeo4W\bin\gdal300’` (32 bits);
 
 
-h) Open `http://127.0.0.1:8000/`, get the admin Token and place it as Postman.
+h) Open `http://127.0.0.1:8000/`, get the admin `Token` and place it at Postman.
 
 
 ### 3. Services
